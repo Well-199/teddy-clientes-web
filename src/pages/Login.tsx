@@ -19,15 +19,31 @@ function Login() {
 
     if(name == '') return setError('Campo nome não pode ser vazio!')
     if(name.length < 3) return setError('Nome deve ter no minimo 3 caracteres!')
+
+    try {
+      const req = await fetch('http://localhost:3000/clientes/login', {
+        method: 'POST',
+        body: JSON.stringify({ nome: name }),
+        headers: { 'Content-Type': 'application/json' }
+      })
+      const res = await req.json()
+      console.log(res)
+      if(res.error){
+        localStorage.removeItem('@token')
+        setError(res.message)
+        return
+      }
+
+      if(res.token){
+        localStorage.setItem('@token', res.token)
+        navigate('/Home')
+        return
+      }
+    } catch (error) { console.log(error) }
     
-    // api que recebe o nome e valida o acesso
-    localStorage.setItem('@token', "cjabsb7ety7")
-    navigate('/Home')
   }
 
-  useEffect(() => {
-    // console.log(name)
-  }, [name])
+  useEffect(() => { /*console.log(name)*/ }, [name])
 
   return (
     <div className='container'>
