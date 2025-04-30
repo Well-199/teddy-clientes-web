@@ -21,9 +21,9 @@ function Login() {
     if(name.length < 3) return setError('Nome deve ter no minimo 3 caracteres!')
 
     try {
-      const req = await fetch('http://localhost:3000/clientes/login', {
+      const req = await fetch('http://localhost:3000/usuarios/login', {
         method: 'POST',
-        body: JSON.stringify({ nome: name }),
+        body: JSON.stringify({ nome: name.trim() }),
         headers: { 'Content-Type': 'application/json' }
       })
       const res = await req.json()
@@ -36,7 +36,8 @@ function Login() {
 
       if(res.token){
         localStorage.setItem('@token', res.token)
-        navigate('/Home')
+        localStorage.setItem("@id", res.id)
+        navigate('/Home', { state: { userId: res.id } })
         return
       }
     } catch (error) { console.log(error) }
@@ -47,15 +48,17 @@ function Login() {
 
   return (
     <div className='container'>
-      <div className='title'>Olá seja bem-vindo!</div>
-      <div className='inputName'>
-        <input type='text' placeholder='Digite o seu nome.' onChange={handleChange}/>
-      </div>
-      {error&&
-        <p className='error'>{error}</p>
-      }
-      <div className='buttonToEnter' onClick={access}>
-        <img src={toenter} alt='to-enter'/>
+      <div className='section'>
+        <div className='title'>Olá seja bem-vindo!</div>
+        <div className='inputName'>
+          <input type='text' placeholder='Digite o seu nome.' onChange={handleChange}/>
+        </div>
+        {error&&
+          <p className='error'>{error}</p>
+        }
+        <div className='buttonToEnter' onClick={access}>
+          <img src={toenter} alt='to-enter'/>
+        </div>
       </div>
     </div>
   )
