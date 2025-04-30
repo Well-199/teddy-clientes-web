@@ -27,7 +27,6 @@ function Login() {
         headers: { 'Content-Type': 'application/json' }
       })
       const res = await req.json()
-      console.log(res)
       if(res.error){
         localStorage.removeItem('@token')
         setError(res.message)
@@ -37,7 +36,8 @@ function Login() {
       if(res.token){
         localStorage.setItem('@token', res.token)
         localStorage.setItem("@id", res.id)
-        navigate('/Home', { state: { userId: res.id } })
+        localStorage.setItem("@name", res.nome)
+        navigate('/Home', { state: { userId: res.id, username: res.nome } })
         return
       }
     } catch (error) { console.log(error) }

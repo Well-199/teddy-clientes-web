@@ -1,7 +1,7 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   text-align: center;
 }
 
@@ -42,6 +42,7 @@
 .buttonToEnter {
   width: 521px;
   height: 60px;
+  cursor: pointer;
 }
 
 .buttonToEnter img {
@@ -51,4 +52,18 @@
 .error {
   font-size: 20px;
   color: #FF0000;
+}
+
+@media screen and (max-width: 696px){
+  .title {
+    font-size: 22px;
+  }
+
+  .inputName input {
+    width: 320px;
+  }
+
+  .buttonToEnter {
+    width: 342px;
+  }
 }

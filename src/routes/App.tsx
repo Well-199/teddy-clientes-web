@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import Login from '../pages/Login'
 import Home from '../pages/Home'
+import Selecionados from '../pages/Selected'
 
 interface PrivateRouteProps { children: React.JSX.Element }
 
@@ -19,6 +20,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/Home" element={<PrivateRoute><Home /></PrivateRoute>} />
+        <Route path="/Selecionados" element={<PrivateRoute><Selecionados /></PrivateRoute>} />
       </Routes>
     </BrowserRouter>
   );
